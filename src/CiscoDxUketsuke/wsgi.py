@@ -1,14 +1,9 @@
-"""
-WSGI config for CiscoDxUketsuke project.
+# -*- coding: utf-8 -*-
 
-It exposes the WSGI callable as a module-level variable named ``application``.
+import os,sys
 
-For more information on this file, see
-https://docs.djangoproject.com/en/1.7/howto/deployment/wsgi/
-"""
-
-import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "CiscoDxUketsuke.settings")
+sys.path.append('/home/fjunya/django/dxApp/src')
+os.environ["DJANGO_SETTINGS_MODULE"] = "CiscoDxUketsuke.settings"
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
