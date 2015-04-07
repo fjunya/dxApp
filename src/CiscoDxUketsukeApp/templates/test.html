@@ -1,0 +1,17 @@
+<html>
+<body>
+<form action="/dx/add_member/" method="post">
+<input type="text" name="name" value="bbbb">
+<input type="text" name="name_en" value="cccc">
+<input type="text" name="number" value="bbbb">
+<input type="text" name="kana" value="cccc">
+{% csrf_token %}
+<button type="submit">Submit</button>
+</form>
+<form action="/dx/favorite_tsv/" method="post">
+<input type="text" name="identifier" value="abcdef0">
+{% csrf_token %}
+<button type="submit">Submit</button>
+</form>
+</body>
+</html>

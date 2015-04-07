@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/static/dx/common_dx80.css">
+	<link rel="stylesheet" href="/static/dx/key_board.css" />
+	<script src="/static/dx/lib/jquery_2.1.7.js"></script>
+	<!-- <script src="/static/dx/lib/jquery.mobile.events.js"></script> -->
+	<!-- <script src="/static/dx/js/list_manage.js"></script>
+	<script src="/static/dx/js/fav_manage.js"></script>
+	<script src="/static/dx/js/history_manage.js"></script>
+	<script src="/static/dx/key.js"></script>
+	<script src="/static/dx/Key_board.class.js"></script> -->
+	<script>
+		$(document).ready(function(){
+		})
+	</script>
+	<title>Document</title>
+</head>
+<body>
+<div id="home"></div>
+<div id="list"></div>
+<div id="fav"></div>
+<div id="history"></div>
+<div id="key"></div>
+
+<div id="all_wrap">
+	<nav>
+		<menu>
+			<li class="cologo">
+				<img src="/static/dx/logo_cisco_blue.png" height="60px" alt="">
+			</li>
+			<li>
+				<div class="menu_li home" for="home">
+					<a href="#home">ホーム</a>
+				</div>
+			</li>
+			<li>
+				<div class="menu_li list" for="list">
+					<a href="#list">電話帳</a>
+				</div>
+			</li>
+			<li>
+				<div class="menu_li fav" for="list">
+					<a href="#fav">お気に入り</a>
+				</div>
+			</li>
+			<li>
+				<div class="menu_li history" for="history">
+					<a href="#history">履歴</a>
+				</div>
+			</li>
+			<li>
+				<div class="menu_li key" for="key">
+					<a href="#key">キーパッド</a>
+				</div>
+			</li>
+			<!--
+			<li>
+				<div class="menu_li sw" id="sw">
+					<a href="#sw">検索</a>
+				</div>
+			</li>
+			-->
+		</menu>
+	</nav>
+	<div>
+		<p>test</p>
+	</div>
+
+
+
+	<div id="search_key_board">
+		<div id="search_closer" class="search_closer"></div>
+		<div class="key_board_wrap">
+			<div class="key_board">
+				<div class="inputed"></div>
+				<div class="keys_wrap">
+
+					<div class="funckey_wrap">
+						<div class="funckey change">英/数</div>
+						<div class="funckey pattern_change">小/濁</div>
+					</div>
+					<div class="keys">
+						<div class="kana_wrap">
+
+						</div>
+						<div class="alfa_wrap">
+
+						</div>
+					</div>
+					<div class="funckey_wrap">
+						<div class="funckey del">✕</div>
+						<div class="funckey to_left">＜</div>
+						<div class="funckey to_right">＞</div>
+						<div class="funckey done">done</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+
+
+
+
+<input type="checkbox" id="is_loading"/>
+<!--
+<label id="load_switch" for="is_loading"></label>
+-->
+<article id="loader_page">
+	<section id="loader">
+
+		<div id="loading_animation">
+			<div>
+			</div>
+		</div>
+
+		<div id="message"></div>
+	</section>
+</article>
+<script>
+
+$(document).ready(function(){
+	$(".callbutton").on("mousedown", function(){
+		var that = $(this);
+		that.addClass("tap");
+		$(window).on("mouseup", function(){
+			setTimeout(function(){
+				that.removeClass("tap");
+			}, 100);
+			that.off("mouseup");
+			$(window).off("mouseup");
+		})
+		that.on("mouseup", function(){
+			setTimeout(function(){
+				that.removeClass("tap");
+			}, 100);
+			location.href = "tel://" + that.attr("num");
+			that.off("mouseup");
+			$(window).off("mouseup");
+		})
+	})
+
+	$("#homemenu ul li").click(function(){
+		if($(this).hasClass("active")){
+			$(this).removeClass("active");
+		}else{
+			$(this).addClass("active");
+			$("#is_loading").prop("checked", true);
+			setTimeout(function(){
+				$("#homemenu ul li").removeClass("active");
+			}, 500)
+			setTimeout(function(){
+				$("#is_loading").prop("checked", false);
+			}, 2000)
+		}
+	})
+})
+</script>
+</body>
+</html>

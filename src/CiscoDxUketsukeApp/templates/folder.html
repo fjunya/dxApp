@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content %}
+<br><br><br>
+{% if not folder_top %}
+	<div class="container">
+		<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">追加</button>
+		<br><br><br>
+	</div>
+{% endif %}
+<div class="container">
+	{% if folder_top %}
+	<div class="panel panel-info">
+  	<!-- Default panel contents -->
+  		<div class="panel-heading">端末一覧</div>
+  		<table class="table table-hover">
+			<tr>
+				<th><p class="text-primary">端末識別ID</p></th>
+				<th><p class="text-primary">メモ</p></th>
+			</tr>
+			{% for dx in dxs %}
+			<tr data-href="/dx/folder/{{ dx.pk }}/">
+				<td>
+					<p class="text-primary">{{ dx.identifier }}</p>
+				</td>
+				<td>
+					<p class="text-primary">{{ dx.memo }}</p>
+				</td>
+			</tr>
+			{% endfor %}
+  		</table>
+  	</div>
+  	{% else %}
+  	<div class="col-md-3">
+  	<ul class="nav nav-pills nav-stacked">
+  	<li role="presentation" class="active"><a href="#">Home</a></li>
+  <li role="presentation"><a href="#">Profile</a></li>
+  <li role="presentation"><a href="#">Messages</a></li>
+	</ul>
+  	
+  	
+  	<table class="table">
+			<tr>
+				<th><p class="text-primary">名前</p></th>
+				<th><p class="text-primary">電話番号</p></th>
+			</tr>
+			{% for member in members %}
+			<tr>
+				<td>
+					<p class="text-primary">{{ member.name }}</p>
+				</td>
+				<td>
+					<p class="text-primary">{{ member.number }}</p>
+				</td>
+			</tr>
+			{% endfor %}
+  		</table>
+  	</div>
+  	<div class="col-md-10">
+  	</div>
+  	{% endif %}
+
+    <!-- 3.モーダルのコンテンツ -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  	<div class="modal-dialog">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        		<h4 class="modal-title" id="exampleModalLabel">Add</h4>
+	      		</div>
+	      		<div class="modal-body">
+			        <form>
+			        <div class="form-group">
+			            <label for="recipient-name" class="control-label">識別ID:</label>
+			            <input type="text" class="form-control" id="id">
+			        </div>
+			        <div class="form-group">
+			            <label for="message-text" class="control-label">メモ:</label>
+			            <textarea class="form-control" id="memo"></textarea>
+			            {% csrf_token %}
+			        </div>
+			        </form>
+	    		</div>
+	   			<div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary" id="add_button">Add</button>
+			   	</div>
+			</div>
+	  	</div>
+	</div>
+</div>
+{% endblock %}

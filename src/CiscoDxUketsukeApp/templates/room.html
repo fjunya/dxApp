@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+<br><br><br>
+<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">追加</button>
+<br><br><br>
+</div>
+<div class="container">
+<div class="row">
+{% for room in rooms %}
+  <div class="col-md-4">
+	  <div class="alert alert-info" role="alert">
+	  {{ room.name }}<br>
+	  {{ room.name_en }}<br>
+	  {{ room.number }}<br>
+	  {{ room.kana }}<br>
+	  </div>
+  </div>
+ {% endfor %}
+</div>
+</div>
+
+<!-- 3.モーダルのコンテンツ -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  	<div class="modal-dialog">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        		<h4 class="modal-title" id="exampleModalLabel">ルームの追加</h4>
+	      		</div>
+	      		<div class="modal-body">
+			        <form>
+			        <div class="form-group">
+			            <label for="recipient-name" class="control-label">名前:</label>
+			            <input type="text" class="form-control" id="name">
+			        </div>
+			        <div class="form-group">
+			            <label for="recipient-name" class="control-label">英字:</label>
+			            <input type="text" class="form-control" id="name_en">
+			        </div>
+			        <div class="form-group">
+			            <label for="recipient-name" class="control-label">電話番号:</label>
+			            <input type="text" class="form-control" id="number">
+			        </div>
+			        <div class="form-group">
+			            <label for="recipient-name" class="control-label">名前かな:</label>
+			            <input type="text" class="form-control" id="kana">
+			            {% csrf_token %}
+			        </div>
+			        </form>
+	    		</div>
+	   			<div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary" id="room_add">Add</button>
+			   	</div>
+			</div>
+	  	</div>
+	</div>
+
+{% endblock %}

@@ -5,7 +5,7 @@ from django.contrib import admin
 
 class Dx(models.Model):
     identifier = models.CharField("識別ID",max_length=100,blank=False)
-    memo = models.TextField("メモ")
+    memo = models.TextField("メモ",blank=True)
     def __unicode__(self):
         return self.identifier
 
@@ -39,15 +39,16 @@ class Folder(models.Model):
     name_en = models.CharField("名前英語",max_length=100,blank=True)
     number = models.CharField("電話番号",max_length=50,blank=True)
     kana = models.CharField("名前かな",max_length=100,blank=True)
-    dx = models.ForeignKey(Dx,unique=True)
-    folders = models.ManyToManyField('self')
-    members = models.ManyToManyField(Member)
-    rooms = models.ManyToManyField(Room)
+    dx = models.ManyToManyField(Dx,blank=True)
+#     dx = models.ForeignKey(Dx,unique=False,blank=True)
+    folders = models.CommaSeparatedIntegerField("フォルダリスト",max_length=100,blank=True)
+    members = models.ManyToManyField(Member,blank=True)
+    rooms = models.ManyToManyField(Room,blank=True)
     def __unicode__(self):
         return self.name
 
 class FolderAdmin(admin.ModelAdmin):
-    list_display = ('pk','name','dx')
+    list_display = ('pk','name')
     
 
 class Favorite(models.Model):
@@ -55,15 +56,16 @@ class Favorite(models.Model):
     name_en = models.CharField("名前英語",max_length=100,blank=True)
     number = models.CharField("電話番号",max_length=50,blank=True)
     kana = models.CharField("名前かな",max_length=100,blank=True)
-    dx = models.ForeignKey(Dx,unique=True)
-    folders = models.ManyToManyField('self')
-    members = models.ManyToManyField(Member)
-    rooms = models.ManyToManyField(Room)
+    dx = models.ManyToManyField(Dx,blank=True)
+#     dx = models.ForeignKey(Dx,unique=True)
+    folders = models.CommaSeparatedIntegerField('フォルダリスト',max_length=100,blank=True)
+    members = models.ManyToManyField(Member,blank=True)
+    rooms = models.ManyToManyField(Room,blank=True)
     def __unicode__(self):
         return self.name
     
 class FavoriteAdmin(admin.ModelAdmin):
-    list_display = ('pk','name','dx')
+    list_display = ('pk','name')
     
 admin.site.register(Dx, DxAdmin)
 admin.site.register(Member,MemberAdmin)

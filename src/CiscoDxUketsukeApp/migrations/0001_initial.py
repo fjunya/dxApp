@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('identifier', models.CharField(max_length=100, verbose_name=b'\xe8\xad\x98\xe5\x88\xa5ID')),
-                ('memo', models.TextField(verbose_name=b'\xe3\x83\xa1\xe3\x83\xa2')),
+                ('memo', models.TextField(verbose_name=b'\xe3\x83\xa1\xe3\x83\xa2', blank=True)),
             ],
             options={
             },
@@ -29,8 +29,8 @@ class Migration(migrations.Migration):
                 ('name_en', models.CharField(max_length=100, verbose_name=b'\xe5\x90\x8d\xe5\x89\x8d\xe8\x8b\xb1\xe8\xaa\x9e', blank=True)),
                 ('number', models.CharField(max_length=50, verbose_name=b'\xe9\x9b\xbb\xe8\xa9\xb1\xe7\x95\xaa\xe5\x8f\xb7', blank=True)),
                 ('kana', models.CharField(max_length=100, verbose_name=b'\xe5\x90\x8d\xe5\x89\x8d\xe3\x81\x8b\xe3\x81\xaa', blank=True)),
-                ('dx', models.ForeignKey(to='CiscoDxUketsukeApp.Dx', unique=True)),
-                ('folders', models.ManyToManyField(related_name='folders_rel_+', to='CiscoDxUketsukeApp.Favorite')),
+                ('folders', models.CommaSeparatedIntegerField(max_length=100, verbose_name=b'\xe3\x83\x95\xe3\x82\xa9\xe3\x83\xab\xe3\x83\x80\xe3\x83\xaa\xe3\x82\xb9\xe3\x83\x88', blank=True)),
+                ('dx', models.ManyToManyField(to='CiscoDxUketsukeApp.Dx', blank=True)),
             ],
             options={
             },
@@ -44,8 +44,8 @@ class Migration(migrations.Migration):
                 ('name_en', models.CharField(max_length=100, verbose_name=b'\xe5\x90\x8d\xe5\x89\x8d\xe8\x8b\xb1\xe8\xaa\x9e', blank=True)),
                 ('number', models.CharField(max_length=50, verbose_name=b'\xe9\x9b\xbb\xe8\xa9\xb1\xe7\x95\xaa\xe5\x8f\xb7', blank=True)),
                 ('kana', models.CharField(max_length=100, verbose_name=b'\xe5\x90\x8d\xe5\x89\x8d\xe3\x81\x8b\xe3\x81\xaa', blank=True)),
-                ('dx', models.ForeignKey(to='CiscoDxUketsukeApp.Dx', unique=True)),
-                ('folders', models.ManyToManyField(related_name='folders_rel_+', to='CiscoDxUketsukeApp.Folder')),
+                ('folders', models.CommaSeparatedIntegerField(max_length=100, verbose_name=b'\xe3\x83\x95\xe3\x82\xa9\xe3\x83\xab\xe3\x83\x80\xe3\x83\xaa\xe3\x82\xb9\xe3\x83\x88', blank=True)),
+                ('dx', models.ManyToManyField(to='CiscoDxUketsukeApp.Dx', blank=True)),
             ],
             options={
             },
@@ -80,25 +80,25 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='folder',
             name='members',
-            field=models.ManyToManyField(to='CiscoDxUketsukeApp.Member'),
+            field=models.ManyToManyField(to='CiscoDxUketsukeApp.Member', blank=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='folder',
             name='rooms',
-            field=models.ManyToManyField(to='CiscoDxUketsukeApp.Room'),
+            field=models.ManyToManyField(to='CiscoDxUketsukeApp.Room', blank=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='favorite',
             name='members',
-            field=models.ManyToManyField(to='CiscoDxUketsukeApp.Member'),
+            field=models.ManyToManyField(to='CiscoDxUketsukeApp.Member', blank=True),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='favorite',
             name='rooms',
-            field=models.ManyToManyField(to='CiscoDxUketsukeApp.Room'),
+            field=models.ManyToManyField(to='CiscoDxUketsukeApp.Room', blank=True),
             preserve_default=True,
         ),
     ]
