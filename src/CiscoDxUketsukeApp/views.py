@@ -7,6 +7,7 @@ import csv
 from form import *
 from django.core.context_processors import csrf, request
 from django.http import JsonResponse
+import io
 
 
 def member_tsv(request):
@@ -21,6 +22,34 @@ def member_tsv(request):
         writer.writerow([member.name.encode('utf-8'), member.name_en.encode('utf-8'), member.number.encode('utf-8'), member.kana.encode('utf-8')])
     return response
 
+def member_json(request):
+    """
+    member.jsと同じ形式のファイルを返す
+    """
+    members = Member.objects.all()
+    response = HttpResponse(content_type='text/plain')
+
+    value = u"var member = ["
+    for member in members:
+        file_content = u"""
+        {
+            name:"%s",
+            name_en: "%s",
+            number: "%s",
+            kana: "%s"
+        },""" % (member.name, member.name_en, member.number, member.kana)
+        value += file_content
+    value += u"]"
+    output = io.StringIO()
+    output.write(value)
+    response = HttpResponse(output.getvalue(), content_type="text/plain")
+    response['Content-Disposition'] = 'attachment; member.txt'
+    return response
+
+
+
+    
+
 def room_tsv(request):
     """
     部屋のリストのtsvファイルを返す
@@ -32,6 +61,31 @@ def room_tsv(request):
     for room in rooms:
         writer.writerow([room.name.encode('utf-8'), room.name_en.encode('utf-8'), room.number.encode('utf-8'), room.kana.encode('utf-8')])
     return response
+
+def room_json(request):
+    """
+    room.jsと同じ形式のファイルを返す
+    """
+    rooms = Room.objects.all()
+    response = HttpResponse(content_type='text/plain')
+
+    value = u"var room = ["
+    for room in rooms:
+        file_content = u"""
+        {
+            name:"%s",
+            name_en: "%s",
+            number: "%s",
+            kana: "%s"
+        },""" % (room.name, room.name_en, room.number, room.kana)
+        value += file_content
+    value += u"]"
+    output = io.StringIO()
+    output.write(value)
+    response = HttpResponse(output.getvalue(), content_type="text/plain")
+    response['Content-Disposition'] = 'attachment; room.txt'
+    return response
+
 
 def folder_tsv(request):
     """
@@ -68,6 +122,52 @@ def folder_tsv(request):
                             folders_val,member_val,room_val])
         return response
 #         return HttpResponse(status=200)
+def folder_json(request):
+    """
+    folder.jsと同じ形式のファイルを返す
+    """
+    if request.method == 'POST':
+        identifier = request.POST['identifier']
+        dx = Dx.objects.filter(identifier=identifier).get()
+        folders = Folder.objects.filter(dx=dx.pk).order_by('pk')
+        value = u"var folder = ["
+        folder_list = []
+        for folder in folders:
+            folder_list.append(folder.pk)
+        for folder in folders:
+            member_list = folder.members.values_list()
+            member_val = "["
+            for val in member_list:
+                member_val = member_val + str(val[0] -1) + ","
+            member_val = member_val + "]"
+            room_list = folder.rooms.values_list()
+            room_val = "["
+            for val in room_list:
+                room_val = room_val + str(val[0] -1) + ","
+            room_val = room_val + "]"
+            folder_list2 = folder.folders.split(',')
+            folders_val = '['
+            for folder_number in folder_list2:
+                if not '' == folder_number:
+                    folders_val = folders_val + str(folder_list.index(int(folder_number))) + ","
+            folders_val = folders_val + ']'
+            file_content = """
+            {
+            name:"%s",
+            name_en:"%s",
+            folders:%s,
+            members:%s,
+            rooms:%s,
+            },
+            """ % (folder.name,folder.name_en,folders_val,member_val,room_val) 
+            value += file_content
+        value += u"]"
+        output = io.StringIO()
+        output.write(value)
+        response = HttpResponse(output.getvalue(), content_type="text/plain")
+        response['Content-Disposition'] = 'attachment; folder.txt'
+        return response
+
 
 def favorite_tsv(request):
     """
@@ -102,6 +202,52 @@ def favorite_tsv(request):
             folders_val = folders_val + ']' 
             writer.writerow([folder.name.encode('utf-8'),folder.name_en.encode('utf-8'),
                             folders_val,member_val,room_val])
+        return response
+    
+def favorite_json(request):
+    """
+    fav.jと同じ形式のファイルを返す
+    """
+    if request.method == 'POST':
+        identifier = request.POST['identifier']
+        dx = Dx.objects.filter(identifier=identifier).get()
+        folders = Favorite.objects.filter(dx=dx.pk).order_by('pk')
+        folder_list = []
+        value = u"var folder = ["
+        for folder in folders:
+            folder_list.append(folder.pk)
+        for folder in folders:
+            member_list = folder.members.values_list()
+            member_val = "["
+            for val in member_list:
+                member_val = member_val + str(val[0] -1) + ","
+            member_val = member_val + "]"
+            room_list = folder.rooms.values_list()
+            room_val = "["
+            for val in room_list:
+                room_val = room_val + str(val[0] -1) + ","
+            room_val = room_val + "]"
+            folder_list2 = folder.folders.split(',')
+            folders_val = '['
+            for folder_number in folder_list2:
+                if not '' == folder_number:
+                    folders_val = folders_val + str(folder_list.index(int(folder_number))) + ","
+            folders_val = folders_val + ']' 
+            file_content = """
+            {
+            name:"%s",
+            name_en:"%s",
+            folders:%s,
+            members:%s,
+            rooms:%s,
+            },
+            """ % (folder.name,folder.name_en,folders_val,member_val,room_val) 
+            value += file_content
+        value += u"]"
+        output = io.StringIO()
+        output.write(value)
+        response = HttpResponse(output.getvalue(), content_type="text/plain")
+        response['Content-Disposition'] = 'attachment; folder.txt'
         return response
     
 def home(request):
@@ -227,6 +373,9 @@ def add_room(request):
             response = JsonResponse({'result': 'ng'})
         return response
         
+# def add_folder(request):
+#     if request.method == "POST":
+        
     
 
 def add_member_room_db(request):
@@ -247,7 +396,8 @@ def add_member_room_db(request):
         room_form = RoomForm(room_data)
         room_form.save()
         folder_data = {'name':"フォルダ" + str(i),
-                       'name_en':"folder" + str(i)}
+                       'name_en':"folder" + str(i),
+                       'root':False}
         folder_form = FolderForm(folder_data)
         folder_form.save()
         favorite_data = {'name':"お気に入り" + str(i),

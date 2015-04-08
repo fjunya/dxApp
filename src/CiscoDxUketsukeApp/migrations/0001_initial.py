@@ -45,6 +45,7 @@ class Migration(migrations.Migration):
                 ('number', models.CharField(max_length=50, verbose_name=b'\xe9\x9b\xbb\xe8\xa9\xb1\xe7\x95\xaa\xe5\x8f\xb7', blank=True)),
                 ('kana', models.CharField(max_length=100, verbose_name=b'\xe5\x90\x8d\xe5\x89\x8d\xe3\x81\x8b\xe3\x81\xaa', blank=True)),
                 ('folders', models.CommaSeparatedIntegerField(max_length=100, verbose_name=b'\xe3\x83\x95\xe3\x82\xa9\xe3\x83\xab\xe3\x83\x80\xe3\x83\xaa\xe3\x82\xb9\xe3\x83\x88', blank=True)),
+                ('root', models.BooleanField(verbose_name=b'\xe8\xa6\xaa\xe3\x83\x95\xe3\x82\xa9\xe3\x83\xab\xe3\x83\x80')),
                 ('dx', models.ManyToManyField(to='CiscoDxUketsukeApp.Dx', blank=True)),
             ],
             options={

@@ -44,6 +44,7 @@ class Folder(models.Model):
     folders = models.CommaSeparatedIntegerField("フォルダリスト",max_length=100,blank=True)
     members = models.ManyToManyField(Member,blank=True)
     rooms = models.ManyToManyField(Room,blank=True)
+    root = models.BooleanField("親フォルダ")
     def __unicode__(self):
         return self.name
 
