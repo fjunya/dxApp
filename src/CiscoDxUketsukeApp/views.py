@@ -15,7 +15,7 @@ def member_tsv(request):
     連絡先リスト(member.js用)のtsvファイルを返す
     """
     members = Member.objects.all()
-    response = HttpResponse(content_type='text/plain')
+    response = HttpResponse(content_type='text/plain',status=200)
     response['Content-Disposition'] = 'attachment; member.txt'
     writer = csv.writer(response,delimiter='\t')
     for member in members:
@@ -42,7 +42,7 @@ def member_json(request):
     value += u"]"
     output = io.StringIO()
     output.write(value)
-    response = HttpResponse(output.getvalue(), content_type="text/plain")
+    response = HttpResponse(output.getvalue(), content_type="text/plain",status=200)
     response['Content-Disposition'] = 'attachment; member.txt'
     return response
 
@@ -86,7 +86,7 @@ def room_json(request):
     response['Content-Disposition'] = 'attachment; room.txt'
     return response
 
-
+@csrf_exempt
 def folder_tsv(request):
     """
     フォルダーのtsvファイルを返す
@@ -122,6 +122,8 @@ def folder_tsv(request):
                             folders_val,member_val,room_val])
         return response
 #         return HttpResponse(status=200)
+
+@csrf_exempt
 def folder_json(request):
     """
     folder.jsと同じ形式のファイルを返す
@@ -168,7 +170,7 @@ def folder_json(request):
         response['Content-Disposition'] = 'attachment; folder.txt'
         return response
 
-
+@csrf_exempt
 def favorite_tsv(request):
     """
     お気に入りのtsvファイルを返す
@@ -203,7 +205,8 @@ def favorite_tsv(request):
             writer.writerow([folder.name.encode('utf-8'),folder.name_en.encode('utf-8'),
                             folders_val,member_val,room_val])
         return response
-    
+
+@csrf_exempt    
 def favorite_json(request):
     """
     fav.jと同じ形式のファイルを返す
