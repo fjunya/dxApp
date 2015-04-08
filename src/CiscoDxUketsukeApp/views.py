@@ -8,6 +8,7 @@ from form import *
 from django.core.context_processors import csrf, request
 from django.http import JsonResponse
 import io
+from django.views.decorators.csrf import csrf_exempt
 
 
 def member_tsv(request):
