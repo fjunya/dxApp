@@ -217,7 +217,7 @@ def favorite_json(request):
         dx = Dx.objects.filter(identifier=identifier).get()
         folders = Favorite.objects.filter(dx=dx.pk).order_by('pk')
         folder_list = []
-        value = u"var folder = ["
+        value = u"var fav = ["
         for folder in folders:
             folder_list.append(folder.pk)
         for folder in folders:
