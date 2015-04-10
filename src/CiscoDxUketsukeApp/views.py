@@ -10,7 +10,7 @@ from django.http import JsonResponse
 import io
 from django.views.decorators.csrf import csrf_exempt
 # from aetypes import template
-from numpy.distutils.from_template import template_name_re
+# from numpy.distutils.from_template import template_name_re
 
 
 def member_tsv(request):
