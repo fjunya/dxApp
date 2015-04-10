@@ -11,18 +11,9 @@
 					var touch = touch_list[0];
 					console.log("identifier:" + touch.identifier);
 					console.log("test:" + $(this.text()));
-					val = val + $(this).text();
-					$('input').val(val);
+					//val = val + $(this).text();
+					$('input').val("test");
 				}	
-				
-				// if(document.addEventListener){
-					// function TouchEventFunc(e){
-						// console.log("type:" + e.type);
-						// var touch_list = e.changedTouches;
-						// var touch = touch_list[0]
-						// alert(touch.identifier);
-					// }
-				// }
 				
 				var ele1 = document.getElementById("button1");
 				ele1.addEventListener("touchstart",TouchEventFunc);
