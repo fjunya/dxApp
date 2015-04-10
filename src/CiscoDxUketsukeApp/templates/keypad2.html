@@ -11,9 +11,9 @@
 					var touch = touch_list[0];
 					//console.log("identifier:" + touch.identifier);
 					//console.log("test:" + $(this.text()));
-					val = val + touch.target.getAttribute("number")
+					var val = $('input').val() + touch.target.getAttribute("number");
 					$('input').val(val);
-					alert("identifier:" + touch.target.getAttribute("number"))
+					alert("identifier:" + touch.target.getAttribute("number"));
 				}	
 				
 				var ele1 = document.getElementById("button1");
