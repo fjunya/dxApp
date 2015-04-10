@@ -6,33 +6,18 @@
 		<script>
 			$(function(){
 				function TouchEventFunc(e){
-					console.log("type:" + e.type);
-					var touch_list = e.changedTouches;
-					var touch = touch_list[0];
-					console.log("identifier:" + touch.identifier);
-					console.log("test:" + $(this.text()));
+					//var touch_list = e.changedTouches;
+					//var touch = touch_list[0];
+					//console.log("identifier:" + touch.identifier);
+					//console.log("test:" + $(this.text()));
 					//val = val + $(this).text();
-					$('input').val("test");
+					//$('input').val("test");
+					alert("test")
 				}	
 				
 				var ele1 = document.getElementById("button1");
 				ele1.addEventListener("touchstart",TouchEventFunc);
-				var ele2 = document.getElementById("button2");
-				ele2.addEventListener("touchstart",TouchEventFunc);
-				var ele3 = document.getElementById("button3");
-				ele3.addEventListener("touchstart",TouchEventFunc);
-				var ele4 = document.getElementById("button4");
-				ele1.addEventListener("touchstart",TouchEventFunc);
-				var ele5 = document.getElementById("button5");
-				ele5.addEventListener("touchstart",TouchEventFunc);
-				var ele6 = document.getElementById("button6");
-				ele6.addEventListener("touchstart",TouchEventFunc);
-				var ele7 = document.getElementById("button7");
-				ele7.addEventListener("touchstart",TouchEventFunc);
-				var ele8 = document.getElementById("button8");
-				ele8.addEventListener("touchstart",TouchEventFunc);
-				var ele9 = document.getElementById("button9");
-				ele9.addEventListener("touchstart",TouchEventFunc);
+				
 			});
 		</script>
 		
