@@ -9,17 +9,44 @@
 				$('button').click(function (){
 					val = val + $(this).text();
 					$('input').val(val);
-				  
+					console.log("log_test:" + $(this).text());
 				});
 			});
 		</script>
+		<style> 
+			button.btn1 {
+				width:33%;
+				height:80%;
+				font-size: 1.8em;
+				font-weight: bold;
+				padding:30px 30px 30px 30px;
+			}
+			input.txt1 {
+				width: 99%;
+				height: 2em;
+				font-size: 1.4em;
+			}
+			div.main{
+				width: 100%;
+			}
+			div.key {
+				width: 80%;
+				margin: 0 auto;
+				text-align:center;
+				
+			}
+		</style>
 	</head>
 	<body>
+		<div class="main">
+		<div class="key">
 		
-		<input type="text" /><br>
-		<button id="button">1</button><button id="button">2</button><button id="button">3</button><br>
-		<button id="button">4</button><button id="button">5</button><button id="button">6</button><br>
-		<button id="button">7</button><button id="button">8</button><button id="button">9</button><br>
+		<input type="text" class="txt1" /><br>
+		<button class="btn1">1</button><button class="btn1">2</button><button class="btn1">3</button><br>
+		<button class="btn1">4</button><button class="btn1">5</button><button class="btn1">6</button><br>
+		<button class="btn1">7</button><button class="btn1">8</button><button class="btn1">9</button><br>
+		</div>
+		</div>
 	</body>
 	
 </html>
