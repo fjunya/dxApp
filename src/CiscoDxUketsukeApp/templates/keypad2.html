@@ -13,7 +13,7 @@
 					//console.log("test:" + $(this.text()));
 					//val = val + $(this).text();
 					$('input').val("test");
-					alert("identifier:" + touch.target.text())
+					alert("identifier:" + touch.target.getAttribute("number"))
 				}	
 				
 				var ele1 = document.getElementById("button1");
@@ -52,7 +52,7 @@
 		<div class="main">
 			<div class="key">
 				<input type="text" class="txt1"/><br>
-				<button class="btn1" id="button1">1</button><button class="btn1" id="button2">2</button><button class="btn1" id="button3">3</button><br>
+				<button class="btn1" id="button1" number="1">1</button><button class="btn1" id="button2">2</button><button class="btn1" id="button3">3</button><br>
 				<button class="btn1" id="button4">4</button><button class="btn1" id="button5">5</button><button class="btn1" id="button6">6</button><br>
 				<button class="btn1" id="button7">7</button><button class="btn1" id="button8">8</button><button class="btn1" id="button9">9</button><br>
 			</div>
