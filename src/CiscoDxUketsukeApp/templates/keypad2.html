@@ -13,11 +13,27 @@
 					//console.log("test:" + $(this.text()));
 					var val = $('input').val() + touch.target.getAttribute("number");
 					$('input').val(val);
-					alert("identifier:" + touch.target.getAttribute("number"));
+					//alert("identifier:" + touch.target.getAttribute("number"));
 				}	
 				
 				var ele1 = document.getElementById("button1");
 				ele1.addEventListener("touchstart",TouchEventFunc);
+				var ele2 = document.getElementById("button2");
+				ele2.addEventListener("touchstart",TouchEventFunc);
+				var ele3 = document.getElementById("button3");
+				ele3.addEventListener("touchstart",TouchEventFunc);
+				var ele4 = document.getElementById("button4");
+				ele1.addEventListener("touchstart",TouchEventFunc);
+				var ele5 = document.getElementById("button5");
+				ele5.addEventListener("touchstart",TouchEventFunc);
+				var ele6 = document.getElementById("button6");
+				ele6.addEventListener("touchstart",TouchEventFunc);
+				var ele7 = document.getElementById("button7");
+				ele7.addEventListener("touchstart",TouchEventFunc);
+				var ele8 = document.getElementById("button8");
+				ele8.addEventListener("touchstart",TouchEventFunc);
+				var ele9 = document.getElementById("button9");
+				ele9.addEventListener("touchstart",TouchEventFunc);
 				
 			});
 		</script>
@@ -53,8 +69,8 @@
 			<div class="key">
 				<input type="text" class="txt1"/><br>
 				<button class="btn1" id="button1" number="1">1</button><button class="btn1" id="button2" number="2">2</button><button class="btn1" id="button3" number="3">3</button><br>
-				<button class="btn1" id="button1" number="4">4</button><button class="btn1" id="button5" number="5">5</button><button class="btn1" id="button6" number="6">6</button><br>
-				<button class="btn1" id="button1" number="7">7</button><button class="btn1" id="button8" number="8">8</button><button class="btn1" id="button9" number="9">9</button><br>
+				<button class="btn1" id="button4" number="4">4</button><button class="btn1" id="button5" number="5">5</button><button class="btn1" id="button6" number="6">6</button><br>
+				<button class="btn1" id="button7" number="7">7</button><button class="btn1" id="button8" number="8">8</button><button class="btn1" id="button9" number="9">9</button><br>
 			</div>
 		</div>
 	</body>
