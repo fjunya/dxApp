@@ -9,6 +9,8 @@ from django.core.context_processors import csrf, request
 from django.http import JsonResponse
 import io
 from django.views.decorators.csrf import csrf_exempt
+from aetypes import template
+from numpy.distutils.from_template import template_name_re
 
 
 def member_tsv(request):
@@ -420,6 +422,21 @@ def test(request):
     print "#######"
     print c
     return render_to_response(template_name,c)
+
+def test2(request):
+    template_name = "test2.html"
+    c = {}
+    members = Member.objects.all()
+    c.update({'members':members})
+    return render_to_response(template_name,c)
+
+def pad1(request):
+    temlate_name = "keypad.html"
+    return render_to_response(temlate_name)
+
+def pad2(request):
+    template_name = "keypad2.html"
+    return render_to_response(template_name)
     
     
     

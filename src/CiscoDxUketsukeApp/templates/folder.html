@@ -1,5 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
+<<style>
+<!--
+body, .item {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	height: 100%;
+	overflow: auto;
+}
+
+-->
+</style>
 <br><br><br>
 {% if not folder_top %}
 	<div class="container">
@@ -30,7 +41,7 @@
   		</table>
   	</div>
   	{% else %}
-  	<div class="col-md-3 scroll-row">
+  	<div class="col-md-3 scroll-row item">
   	<ul class="nav nav-pills nav-stacked">
   	<li role="presentation" class="active"><a href="#">Home</a></li>
   <li role="presentation"><a href="#">Profile</a></li>

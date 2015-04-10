@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+html {
+	height: 100%;
+	margin: 0;
+}
+
+/* body {
+	margin: 0;
+	padding-bottom: 20px;
+	padding-top: 50px;
+} */
+
+body, .item {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	height: 100%;
+	overflow: auto;
+}
+
+
+#middle {
+}
+
+#left_frame {
+	float: left;
+	width: 25%;
+	margin-left: 5%;
+	margin-top: 60px;
+}
+
+#right_frame {
+}
+
+.member {
+	padding-top:10px;
+	padding-bottom:10px;
+	border-bottom: 1px solid #808080; 
+}
+.name {
+	float: left;
+	width: 50%;
+}
+.number {
+}
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 2px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(0,0,255,0.8); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(0,0,255,0.4); 
+}
+
+
+
+</style>
+
+
+<div id="middle" class="item">
+	<div id="left_frame" class="item">
+	<div id="fruits" ondragover="f_dragover(event)"">	
+		{% for member in members %}
+			<div draggable="true" id="fukagawa" ondragstart="f_dragstart(event)" class="member">
+			<div class="name">{{ member.name }}</div>
+			<div class="number">{{ member.number }}</div>
+			</div>
+			{% endfor %}
+			
+			{% for member in members %}
+			<div draggable="true" id="fukagawa" ondragstart="f_dragstart(event)" class="member">
+			<div class="name">{{ member.name }}</div>
+			<div class="number">{{ member.number }}</div>
+			</div>
+			{% endfor %}
+		
+	</div>
+		
+	</div>
+	<div id="right_frame" class="item" ondragover="f_dragover(event)" ondrop="f_drop(event)">
+		
+		
+{% for member in members %}
+    <div class="alert alert-info" role="alert">
+	  {{ member.name }}<br>
+	  {{ member.name_en }}<br>
+	  {{ member.number }}<br>
+	  {{ member.kana }}<br>
+	  </div>
+  {% endfor %}
+		
+		
+		
+	</div>
+</div>
+
+<script>
+
+function f_dragstart(event){
+	//ドラッグするデータのid名をDataTransferオブジェクトにセット
+	event.dataTransfer.setData("text", event.target.id);
+}
+
+/***** ドラッグ要素がドロップ要素に重なっている間の処理 *****/
+function f_dragover(event){
+	//dragoverイベントをキャンセルして、ドロップ先の要素がドロップを受け付けるようにする
+	event.preventDefault();
+}
+
+/***** ドロップ時の処理 *****/
+function f_drop(event){
+	//ドラッグされたデータのid名をDataTransferオブジェクトから取得
+	var id_name = event.dataTransfer.getData("text");
+	alert(id_name);
+	//id名からドラッグされた要素を取得
+	//var drag_elm =document.getElementById(id_name);
+	//ドロップ先にドラッグされた要素を追加
+	//event.currentTarget.appendChild(drag_elm);
+    //エラー回避のため、ドロップ処理の最後にdropイベントをキャンセルしておく
+	event.preventDefault();
+}
+$('#myTab a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+</script>
+
+</script>
+
+
+{% endblock %}

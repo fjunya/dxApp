@@ -6570,3 +6570,34 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+.sabi {
+  background-color: $sabi-color;
+}
+.sango {
+  background-color: $sango-color;
+}
+#sabi-tab, #sango-tab{
+  top:0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+}
+.scroll-row {
+  margin: 6.5rem 1rem 1rem 1rem;
+  height: calc(100% - 8rem);
+  background: white;
+}
+.main, .sidebar{
+  height: 100%;
+  overflow-y: scroll;
+a .sidebar-panel {
+    height: 30rem;
+    border-width: 0 0 1rem;
+    border-style: solid;
+    &.active {
+      background: darken($background, 10%);
+    }
+  }
+}
