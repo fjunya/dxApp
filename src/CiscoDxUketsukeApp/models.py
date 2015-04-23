@@ -17,6 +17,7 @@ class Member(models.Model):
     name_en = models.CharField("名前英語",max_length=100,blank=True)
     number = models.CharField("電話番号",max_length=50,blank=True)
     kana = models.CharField("名前かな",max_length=100,blank=True)
+    sort = models.IntegerField("ソートスコア",max_length=10,blank=False)
     def __unicode__(self):
         return self.name
 
@@ -28,6 +29,7 @@ class Room(models.Model):
     name_en = models.CharField("名前英語",max_length=100,blank=True)
     number = models.CharField("電話番号",max_length=50,blank=True)
     kana = models.CharField("名前かな",max_length=100,blank=True)
+    sort = models.IntegerField("ソートスコア",max_length=10,blank=False)
     def __unicode__(self):
         return self.name
     
@@ -40,7 +42,6 @@ class Folder(models.Model):
     number = models.CharField("電話番号",max_length=50,blank=True)
     kana = models.CharField("名前かな",max_length=100,blank=True)
     dx = models.ManyToManyField(Dx,blank=True)
-#     dx = models.ForeignKey(Dx,unique=False,blank=True)
     folders = models.CommaSeparatedIntegerField("フォルダリスト",max_length=100,blank=True)
     members = models.ManyToManyField(Member,blank=True)
     rooms = models.ManyToManyField(Room,blank=True)

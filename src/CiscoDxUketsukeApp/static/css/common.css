@@ -1,0 +1,262 @@
+@font-face {
+  font-family: 'paicon';
+  src: url('font/fontello.eot?3928868');
+  src: url('font/fontello.eot?3928468#iefix') format('embedded-opentype'),
+       url('font/fontello.woff?3988468') format('woff'),
+       url('font/fontello.ttf?3988468') format('truetype'),
+       url('font/fontello.svg?3288468#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'pencil';
+  src: url('font_pen/fontello.eot?98275262');
+  src: url('font_pen/fontello.eot?98275262#iefix') format('embedded-opentype'),
+       url('font_pen/fontello.woff?98275262') format('woff'),
+       url('font_pen/fontello.ttf?98275262') format('truetype'),
+       url('font_pen/fontello.svg?98275262#fontello') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.demo-icon
+    {
+    content: "\e800";
+	font-family: pencil;
+	font-size: 20px;
+	color: #428bca;
+    }
+
+@font-face {
+    font-family: 'din';
+    src: url('font/din.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+.members,
+.folders{
+	width: 350px;
+	height: 100px;
+	margin: 12px;
+	display: inline-block;
+	background-color: #fff;
+	border-radius: 3px;
+
+	background: rgb(255,255,255); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(239,239,239,1) 80%, rgba(230,230,230,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(80%,rgba(239,239,239,1)), color-stop(100%,rgba(230,230,230,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(239,239,239,1) 80%,rgba(230,230,230,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(239,239,239,1) 80%,rgba(230,230,230,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(239,239,239,1) 80%,rgba(230,230,230,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(239,239,239,1) 80%,rgba(230,230,230,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e6e6e6',GradientType=0 ); /* IE6-9 */
+
+	box-shadow: 0px 2px 3px rgba(0,0,0,0.3),
+				0px -1px 1px rgba(0,0,0,0.1) inset;
+	padding-left: 100px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	position: relative;
+}
+
+.members:before,
+.folders:before{
+	content: "\e827";
+	font-family: paicon;
+	position: absolute;
+	display: block;
+	height: 100px;
+	width: 100px;
+	left: 0px;
+	top: 0px;
+	line-height: 102px;
+	text-align: center;
+	font-size: 52px;
+	color: #666;
+}
+
+.members:after{
+	content: "\e800";
+	font-family: pencil;
+	position: absolute;
+	display: block;
+	height: 100px;
+	width: 50px;
+	right: 0px;
+	top: 0px;
+	line-height: 106px;
+	text-align: center;
+	font-size: 25px;
+	color: #428bca;
+}
+
+.members.delete:after{
+    content: "\e802";
+	font-family: pencil;
+	position: absolute;
+	display: block;
+	height: 100px;
+	width: 50px;
+	right: 0px;
+	top: 0px;
+	line-height: 106px;
+	text-align: center;
+	font-size: 25px;
+	color: #F08080;
+}
+
+.members:before{
+	font-size: 56px;
+	content: "\e810";
+}
+
+.members div:first-of-type{
+	color: #555;
+	font-weight: bold;
+	font-size: 20px;
+	position: absolute;
+	top: 12px;
+}
+.members div:nth-of-type(2){
+	color: #888;
+	font-size: 15px;
+	position: absolute;
+	top: 42px;
+}
+.members div:nth-of-type(3){
+	color: #555;
+	font-size: 20px;
+	position: absolute;
+	top: 64px;
+	font-family: din;
+}
+.folders div:first-of-type{
+	color: #555;
+	font-weight: bold;
+	font-size: 20px;
+	position: absolute;
+	top: 24px;
+}
+.folders div:nth-of-type(2){
+	color: #888;
+	font-size: 15px;
+	position: absolute;
+	top: 56px;
+}
+
+.members.rooms:before{
+	content: "\e830";
+	font-size: 52px;
+	line-height: 104px;
+}
+
+.members.rooms:after{
+    content: "\e802";
+	font-family: pencil;
+	position: absolute;
+	display: block;
+	height: 100px;
+	width: 50px;
+	right: 0px;
+	top: 0px;
+	line-height: 106px;
+	text-align: center;
+	font-size: 25px;
+	color: #F08080;
+}
+
+body, .item {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 100%;
+    overflow: auto;
+}
+
+#left_frame {
+    float: left;
+    width: 25%;
+    padding-left: 2%;
+}
+
+#right_frame {
+    padding-left: 5%;
+}
+
+.left_folder {
+    float: left;
+}
+
+.right_folder {
+
+}
+
+html {
+    height: 100%;
+    margin: 0;
+}
+
+.user_list {
+    border: solid 1px #DCDCDC;
+    padding: 20px;
+    margin: 5px;
+    color: #428bca;
+    cursor: move;
+    border-radius: 10px;        /* CSS3草案 */
+    -webkit-border-radius: 10px;    /* Safari,Google Chrome用 */
+    -moz-border-radius: 10px;   /* Firefox用 */
+}
+
+.left_header {
+    padding: 20px;
+    margin: 5px;
+    color: #428bca;
+}
+
+#left_text {
+    width: 50%;
+    float: left;
+}
+
+#full_div {
+    width: 100%;
+}
+
+.break{
+    clear:both;
+}
+
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    /*-webkit-border-radius: 10px;*/
+    /*border-radius: 10px;*/
+    background: rgba(0,51,102,0.5);
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(0,0,255,0.1);
+}
+

@@ -8,8 +8,13 @@
 {% csrf_token %}
 <button type="submit">Submit</button>
 </form>
-<form action="/dx/favorite_json/" method="post">
-<input type="text" name="identifier" value="abcdef0">
+<form action="/dx/add_folder/" method="post">
+    <input type="text" name="name" value="abcdef0">
+    <input type="text" name="name_en" value="2aaaaaaa">
+    <input type="text" name="number" value="1">
+    <input type="text" name="kana" value="abcdef0">
+    <input type="text" name="folderId" value="2">
+    <input type="text" name="dxId" value="1">
 {% csrf_token %}
 <button type="submit">Submit</button>
 </form>

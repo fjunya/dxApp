@@ -1,32 +1,42 @@
 {% extends 'base.html' %}
+{% block head %}
+    <link href="/static/css/common.css" rel="stylesheet">
+    {% endblock %}
 {% block content %}
 <div class="container">
 	<br><br><br>
-	<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">追加</button>
+	<button type="button" class="btn btn-primary pull-right" id="modal_add">追加</button>
 	<br><br><br>
 </div>
 <div class="container">
-  	<!-- Default panel contents -->
-  		
-  		<table class="table">
+    <div class="panel panel-info">
+            <!-- Default panel contents -->
+            <div class="panel-heading">端末一覧</div>
+
+  		<table class="table table-hover">
 			<tr>
 				<th><p class="text-primary">端末識別ID</p></th>
 				<th><p class="text-primary">メモ</p></th>
+                <th></th>
 			</tr>
 			{% for dx in dxs %}
-			<tr>
-				<td>
-					<p class="text-primary">{{ dx.identifier }}</p>
-				</td>
-				<td>
-					<p class="text-primary">{{ dx.memo }}</p>
-				</td>
-			</tr>
+                <tr>
+                    <td>
+                        <p class="text-primary" id="identifier{{ dx.pk }}">{{ dx.identifier }}</p>
+                    </td>
+                    <td>
+                        <p class="text-primary" id="memo{{ dx.pk }}">{{ dx.memo }}</p>
+                    </td>
+                    <td align="right">
+                        <a class="demo-icon" id="modal_edit" dxId="{{ dx.pk }}">&#xe800;</a>
+                    </td>
+                </tr>
 			{% endfor %}
   		</table>
+    </div>
 
-    <!-- 3.モーダルのコンテンツ -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- 3.モーダルのコンテンツ(追加) -->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="target_modal_add">
 	  	<div class="modal-dialog">
 	    	<div class="modal-content">
 	      		<div class="modal-header">
@@ -49,6 +59,36 @@
 	   			<div class="modal-footer">
 			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 			        <button type="button" class="btn btn-primary" id="add_button">Add</button>
+			   	</div>
+			</div>
+	  	</div>
+	</div>
+
+    <!-- 3.モーダルのコンテンツ(編集) -->
+    <div class="modal fade" id="target_modal_edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  	<div class="modal-dialog">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        		<h4 class="modal-title" id="exampleModalLabel">Edit</h4>
+	      		</div>
+	      		<div class="modal-body">
+			        <form>
+			        <div class="form-group">
+			            <label for="recipient-name" class="control-label">識別ID:</label>
+			            <input type="text" class="form-control" id="edit_id">
+			        </div>
+			        <div class="form-group">
+			            <label for="message-text" class="control-label">メモ:</label>
+			            <textarea class="form-control" id="edit_memo"></textarea>
+                        <input type="hidden" id="pk">
+			            {% csrf_token %}
+			        </div>
+			        </form>
+	    		</div>
+	   			<div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary" id="edit_button">Save</button>
 			   	</div>
 			</div>
 	  	</div>

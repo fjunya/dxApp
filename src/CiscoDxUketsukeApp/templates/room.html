@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% block head %}
+    <link href="/static/css/common.css" rel="stylesheet">
+    <script type="text/javascript" src="/static/js/drag.js"></script>
+{% endblock %}
 {% block content %}
 <div class="container">
 <br><br><br>
@@ -6,18 +10,15 @@
 <br><br><br>
 </div>
 <div class="container">
-<div class="row">
 {% for room in rooms %}
-  <div class="col-md-4">
-	  <div class="alert alert-info" role="alert">
-	  {{ room.name }}<br>
-	  {{ room.name_en }}<br>
-	  {{ room.number }}<br>
-	  {{ room.kana }}<br>
-	  </div>
-  </div>
+    <div class="col-md-6" aligin="center" draggable="true" id="{{ member.pk }}" ondragstart="f_dragstart(event)">
+        <div class="members">
+          <div>{{ room.name }}</div>
+          <div>{{ room.name_en }}</div>
+          <div>{{ room.number }}</div>
+        </div>
+    </div>
  {% endfor %}
-</div>
 </div>
 
 <!-- 3.モーダルのコンテンツ -->

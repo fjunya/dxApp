@@ -49,9 +49,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'CiscoDxUketsuke.urls'
+ROOT_URLCONF = 'CiscoDxAdmin.urls'
 
-WSGI_APPLICATION = 'CiscoDxUketsuke.wsgi.application'
+WSGI_APPLICATION = 'CiscoDxAdmin.wsgi.application'
 
 
 # Database

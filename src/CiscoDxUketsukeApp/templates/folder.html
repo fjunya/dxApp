@@ -1,102 +1,150 @@
 {% extends 'base.html' %}
-{% block content %}
-<<style>
-<!--
-body, .item {
-	box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	height: 100%;
-	overflow: auto;
-}
+{% block head %}
+<link href="/static/css/common.css" rel="stylesheet">
+{% endblock %}
 
--->
-</style>
-<br><br><br>
-{% if not folder_top %}
-	<div class="container">
-		<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">追加</button>
-		<br><br><br>
-	</div>
-{% endif %}
-<div class="container">
-	{% if folder_top %}
-	<div class="panel panel-info">
-  	<!-- Default panel contents -->
-  		<div class="panel-heading">端末一覧</div>
-  		<table class="table table-hover">
-			<tr>
-				<th><p class="text-primary">端末識別ID</p></th>
-				<th><p class="text-primary">メモ</p></th>
-			</tr>
-			{% for dx in dxs %}
-			<tr data-href="/dx/folder/{{ dx.pk }}/">
-				<td>
-					<p class="text-primary">{{ dx.identifier }}</p>
-				</td>
-				<td>
-					<p class="text-primary">{{ dx.memo }}</p>
-				</td>
-			</tr>
-			{% endfor %}
-  		</table>
-  	</div>
-  	{% else %}
-  	<div class="col-md-3 scroll-row item">
-  	<ul class="nav nav-pills nav-stacked">
-  	<li role="presentation" class="active"><a href="#">Home</a></li>
-  <li role="presentation"><a href="#">Profile</a></li>
-  <li role="presentation"><a href="#">Messages</a></li>
-	</ul>
-  	
-  	
-  	<table class="table">
-			<tr>
-				<th><p class="text-primary">名前</p></th>
-				<th><p class="text-primary">電話番号</p></th>
-			</tr>
-			{% for member in members %}
-			<tr>
-				<td>
-					<p class="text-primary">{{ member.name }}</p>
-				</td>
-				<td>
-					<p class="text-primary">{{ member.number }}</p>
-				</td>
-			</tr>
-			{% endfor %}
-  		</table>
-  	</div>
-  	<div class="col-md-10">
-  	</div>
-  	{% endif %}
+{% block content %}
+    <br><br><br>
+    {% if not folder_top %}
+        <div class="container">
+            <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">フォルダの追加</button>
+            <br><br><br>
+        </div>
+    {% else %}
+        <br><br><br>
+    {% endif %}
+
+    {% if folder_top %}
+        <div class="container">
+            <div class="panel panel-info">
+            <!-- Default panel contents -->
+            <div class="panel-heading">端末一覧</div>
+                <table class="table table-hover ">
+                    <tr>
+                        <th><p class="text-primary">端末識別ID</p></th>
+                        <th><p class="text-primary">メモ</p></th>
+                    </tr>
+                    {% for dx in dxs %}
+                    <tr data-href="/dx/folder/{{ dx.pk }}/">
+                        <td>
+                            <p class="text-primary">{{ dx.identifier }}</p>
+                        </td>
+                        <td>
+                            <p class="text-primary">{{ dx.memo }}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        {% else %}
+        <div id="left_frame" class="item">
+            <div class="left_header">
+                <div id="left_text"><b>名前</b></div>
+                <div><b>電話番号</b></div>
+            </div>
+            {% for member in all_members %}
+                <div class="user_list"  draggable="true" ondragstart="f_dragstart(event)" id="{{ member.pk }}">
+                    <div id="left_text">{{ member.name  }}</div>
+                    <div>{{ member.number  }}</div>
+                </div>
+            {% endfor %}
+
+        </div>
+
+        <div id="right_frame" class="item" ondragover="f_dragover(event)" ondrop="f_drop(event)">
+            <div>
+                {% for folder in folders %}
+                    {% if not forloop.counter|divisibleby:"2" %}
+                        <a href="/dx/folder/{{ dxId }}/{{ folder.pk }}/">
+                         <div class="folders left_folder">
+                            <div>{{ folder.name }}</div>
+                            <div>{{ folder.name_en }}</div>
+                         </div>
+                        </a>
+                    {% else %}
+                        <a href="/dx/folder/{{ dxId }}/{{ folder.pk }}/">
+                        <div class="folders">
+                            <div>{{ folder.name }}</div>
+                            <div>{{ folder.name_en }}</div>
+                         </div>
+                        </a>
+                    {% endif %}
+
+                {% endfor %}
+            </div>
+
+            <div class="break"></div>
+            <div>
+                {% for room in rooms %}
+                    {% if not forloop.counter|divisibleby:"2" %}
+                        <div class="members rooms left_folder">
+                            <div>{{ room.name }}</div>
+                            <div>{{ room.name_en }}</div>
+                            <div>{{  room.number }}</div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="break"></div>
+            <div>
+                {% for member in members %}
+                    {% if not forloop.counter|divisibleby:"2" %}
+                         <div class="members delete left_folder">
+                            <div>{{ member.name }}</div>
+                            <div>{{ member.name_en }}</div>
+                            <div>{{ member.number }}</div>
+                         </div>
+                    {% else %}
+                        <div class="members delete">
+                            <div>{{ member.name }}</div>
+                            <div>{{ member.name_en }}</div>
+                            <div>{{ member.number }}</div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+
+    {% endif %}
 
     <!-- 3.モーダルのコンテンツ -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  	<div class="modal-dialog">
-	    	<div class="modal-content">
-	      		<div class="modal-header">
-	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        		<h4 class="modal-title" id="exampleModalLabel">Add</h4>
-	      		</div>
-	      		<div class="modal-body">
-			        <form>
-			        <div class="form-group">
-			            <label for="recipient-name" class="control-label">識別ID:</label>
-			            <input type="text" class="form-control" id="id">
-			        </div>
-			        <div class="form-group">
-			            <label for="message-text" class="control-label">メモ:</label>
-			            <textarea class="form-control" id="memo"></textarea>
-			            {% csrf_token %}
-			        </div>
-			        </form>
-	    		</div>
-	   			<div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			        <button type="button" class="btn btn-primary" id="add_button">Add</button>
-			   	</div>
-			</div>
-	  	</div>
-	</div>
-</div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">フォルダの追加</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">フォルダ名:</label>
+                            <input type="text" class="form-control" id="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">英字:</label>
+                            <input type="text" class="form-control" id="name_en">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">電話番号:</label>
+                            <input type="text" class="form-control" id="number">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">カナ:</label>
+                            <input type="text" class="form-control" id="kana">
+                        </div>
+                        <input type="hidden" id="dxId" dxId="{{ dxId }}">
+                        <input type="hidden" id="folderId" folderId="{{ folderId }}">
+                        {% csrf_token %}
+                        </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="add_button_folder">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

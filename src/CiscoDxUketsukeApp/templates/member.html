@@ -1,23 +1,26 @@
 {% extends 'base.html' %}
+{% block head %}
+    <link href="/static/css/common.css" rel="stylesheet">
+    <script type="text/javascript" src="/static/js/drag.js"></script>
+{% endblock %}
+
 {% block content %}
 <div class="container">
 <br><br><br>
 <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#exampleModal">追加</button>
 <br><br><br>
 </div>
-<div class="container">
-<div class="row">
+<div class="container" ondragover="f_dragover(event)" ondrop="f_drop(event)">
+
 {% for member in members %}
-  <div class="col-md-4">
-	  <div class="alert alert-info" role="alert">
-	  {{ member.name }}<br>
-	  {{ member.name_en }}<br>
-	  {{ member.number }}<br>
-	  {{ member.kana }}<br>
-	  </div>
-  </div>
- {% endfor %}
-</div>
+    <div class="col-md-6" aligin="center" draggable="true" id="{{ member.pk }}" ondragstart="f_dragstart(event)">
+        <div class="members">
+            <div>{{ member.name }}</div>
+            <div>{{ member.name_en }}</div>
+            <div>{{ member.number }}</div>
+        </div>
+    </div>
+{% endfor %}
 </div>
 
 <!-- 3.モーダルのコンテンツ -->

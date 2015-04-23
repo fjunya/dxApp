@@ -60,6 +60,7 @@ class Migration(migrations.Migration):
                 ('name_en', models.CharField(max_length=100, verbose_name=b'\xe5\x90\x8d\xe5\x89\x8d\xe8\x8b\xb1\xe8\xaa\x9e', blank=True)),
                 ('number', models.CharField(max_length=50, verbose_name=b'\xe9\x9b\xbb\xe8\xa9\xb1\xe7\x95\xaa\xe5\x8f\xb7', blank=True)),
                 ('kana', models.CharField(max_length=100, verbose_name=b'\xe5\x90\x8d\xe5\x89\x8d\xe3\x81\x8b\xe3\x81\xaa', blank=True)),
+                ('sort', models.IntegerField(max_length=10, verbose_name=b'\xe3\x82\xbd\xe3\x83\xbc\xe3\x83\x88\xe3\x82\xb9\xe3\x82\xb3\xe3\x82\xa2')),
             ],
             options={
             },
@@ -73,6 +74,7 @@ class Migration(migrations.Migration):
                 ('name_en', models.CharField(max_length=100, verbose_name=b'\xe5\x90\x8d\xe5\x89\x8d\xe8\x8b\xb1\xe8\xaa\x9e', blank=True)),
                 ('number', models.CharField(max_length=50, verbose_name=b'\xe9\x9b\xbb\xe8\xa9\xb1\xe7\x95\xaa\xe5\x8f\xb7', blank=True)),
                 ('kana', models.CharField(max_length=100, verbose_name=b'\xe5\x90\x8d\xe5\x89\x8d\xe3\x81\x8b\xe3\x81\xaa', blank=True)),
+                ('sort', models.IntegerField(max_length=10, verbose_name=b'\xe3\x82\xbd\xe3\x83\xbc\xe3\x83\x88\xe3\x82\xb9\xe3\x82\xb3\xe3\x82\xa2')),
             ],
             options={
             },

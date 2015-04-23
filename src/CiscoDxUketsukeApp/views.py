@@ -50,9 +50,6 @@ def member_json(request):
     return response
 
 
-
-    
-
 def room_tsv(request):
     """
     部屋のリストのtsvファイルを返す
@@ -307,21 +304,31 @@ def room(request):
     c.update({'rooms':rooms})
     return render_to_response(template_name,c)
 
-def folder(request,dxId=None):
+def folder(request, dxId=None, folderId=None):
     template_name = 'folder.html'
     c = {}
     c.update(csrf(request))
     c.update({'folder':'active'})
+    c.update({'dxId':dxId})
+    c.update({'folderId':folderId})
     if not dxId:
         dxs = Dx.objects.all()
         c.update({'dxs':dxs})
         c.update({'folder_top':True})
     else:
-        folders = Folder.objects.filter(dx=dxId)
-        members = Member.objects.all()
-        c.update({'folders':folders})
-        c.update({'folder_top':False})
-        c.update({'members':members})
+        if folderId:
+            targetFolder = Folder.objects.filter(pk=folderId).get()
+        else:
+            targetFolder = Folder.objects.filter(dx=dxId).filter(root=True).get()
+        c.update({'folders' : Folder.objects.extra(where=['id IN(' + targetFolder.folders + ')'])})
+        c.update({'folder_top' : False})
+        c.update({'members' : targetFolder.members.all()})
+        c.update({'all_members' : Member.objects.all()})
+        c.update({'rooms' : targetFolder.rooms.all()})
+        c.update({'all_rooms' : Room.objects.all()})
+
+
+
     return render_to_response(template_name,c)
     
 
@@ -329,15 +336,39 @@ def add_dx(request):
     if request.method == "POST":
         identifier = request.POST['identifier']
         memo = request.POST['memo']
-        dx = Dx.objects.filter(identifier=identifier)
         dx_data = {'identifier':identifier,
-                   'memo': memo}
+                   'memo': memo,}
         dx_form = DxForm(dx_data)
-        if len(dx) == 0:
+        if len(Dx.objects.filter(identifier=identifier)) == 0:
             if dx_form.is_valid():
-                dx_form.save()
+                new_dx = dx_form.save()
+                folder_form = FolderForm({'name':'parent_folder'},
+                                        {'dx':[str(new_dx.pk)]},
+                                        {'root':True})
+                folder_form.save()
                 response = JsonResponse({'result': 'ok'})
             else:
+                response = JsonResponse({'result': 'ng'})
+        else:
+            response = JsonResponse({'result': 'exist'})
+        return response
+
+def edit_dx(request):
+    if request.method == "POST":
+        identifier = request.POST['identifier']
+        if identifier == '':
+            return JsonResponse({'result': 'ng'})
+        memo = request.POST['memo']
+        pk = request.POST['pk']
+        check_dx = Dx.objects.filter(identifier=identifier).get()
+        dx = Dx.objects.filter(pk=pk).get()
+        dx.identifier = identifier
+        dx.memo = memo
+        if check_dx.pk == dx.pk:
+            try:
+                dx.save()
+                response = JsonResponse({'result': 'ok'})
+            except:
                 response = JsonResponse({'result': 'ng'})
         else:
             response = JsonResponse({'result': 'exist'})
@@ -349,10 +380,12 @@ def add_member(request):
         name_en = request.POST['name_en']
         number = request.POST['number']
         kana = request.POST['kana']
+        sort = request.POST['sort']
         data = {'name':name,
                 'name_en': name_en,
                 'number': number,
-                'kana': kana}
+                'kana': kana,
+                'sort': int(sort)}
         member_form = MemberForm(data)
         if member_form.is_valid():
             member_form.save()
@@ -379,8 +412,38 @@ def add_room(request):
             response = JsonResponse({'result': 'ng'})
         return response
         
-# def add_folder(request):
-#     if request.method == "POST":
+def add_folder(request):
+    if request.method == "POST":
+        name = request.POST['name']
+        name_en = request.POST['name_en']
+        number = request.POST['number']
+        kana = request.POST['kana']
+        dx = [request.POST['dxId']]
+        data = {'name':name,
+                'name_en':name_en,
+                'number':number,
+                'kana':kana,
+                'dx':dx,
+                'root':False}
+        folder_form = FolderForm(data)
+        if folder_form.is_valid():
+            new_folder = folder_form.save()
+            if request.POST['folderId'] != "":
+                parent_folder = Folder.objects.filter(pk=request.POST['folderId']).get()
+            else:
+                parent_folder = Folder.objects.filter(root=True).get()
+            folder_list = parent_folder.folders
+            if len(folder_list) != 0:
+                folder_list += "," + str(new_folder.pk)
+            else:
+                folder_list = str(new_folder.pk)
+            parent_folder.folders = folder_list
+            parent_folder.save()
+            response = JsonResponse({'result': 'ok'})
+        else:
+            response = JsonResponse({'result': 'ng'})
+        return response
+
         
     
 
@@ -392,13 +455,15 @@ def add_member_room_db(request):
         member_data = {'name': "名前" + str(i),
                        'name_en': "Name" + str(i),
                        'number': '1000' + str(i),
-                       'kana': 'なまえ' + str(i)}
+                       'kana': 'なまえ' + str(i),
+                       'sort': 1000}
         member_form = MemberForm(member_data)
         member_form.save()
         room_data = {'name': "名前" + str(i),
                        'name_en': "Name" + str(i),
                        'number': '1000' + str(i),
-                       'kana': 'なまえ' + str(i)}
+                       'kana': 'なまえ' + str(i),
+                       'sort': 1000}
         room_form = RoomForm(room_data)
         room_form.save()
         folder_data = {'name':"フォルダ" + str(i),
@@ -419,8 +484,6 @@ def test(request):
     template_name = 'test.html'
     c = {}
     c.update(csrf(request))
-    print "#######"
-    print c
     return render_to_response(template_name,c)
 
 def test2(request):
