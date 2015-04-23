@@ -14,10 +14,12 @@
 
 {% for member in members %}
     <div class="col-md-6" aligin="center" draggable="true" id="{{ member.pk }}" ondragstart="f_dragstart(event)">
-        <div class="members">
-            <div>{{ member.name }}</div>
-            <div>{{ member.name_en }}</div>
-            <div>{{ member.number }}</div>
+        <div class="div_center">
+            <div class="members">
+                <div>{{ member.name }}</div>
+                <div>{{ member.name_en }}</div>
+                <div>{{ member.number }}</div>
+            </div>
         </div>
     </div>
 {% endfor %}

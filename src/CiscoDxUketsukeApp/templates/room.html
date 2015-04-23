@@ -12,10 +12,12 @@
 <div class="container">
 {% for room in rooms %}
     <div class="col-md-6" aligin="center" draggable="true" id="{{ member.pk }}" ondragstart="f_dragstart(event)">
-        <div class="members">
-          <div>{{ room.name }}</div>
-          <div>{{ room.name_en }}</div>
-          <div>{{ room.number }}</div>
+        <div class="div_center">
+            <div class="members rooms2">
+              <div>{{ room.name }}</div>
+              <div>{{ room.name_en }}</div>
+              <div>{{ room.number }}</div>
+            </div>
         </div>
     </div>
  {% endfor %}

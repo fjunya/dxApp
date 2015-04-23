@@ -151,6 +151,27 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 	line-height: 104px;
 }
 
+.members.rooms2:before{
+	content: "\e830";
+	font-size: 52px;
+	line-height: 104px;
+}
+
+.members.rooms2:after {
+    content: "\e800";
+    font-family: pencil;
+    position: absolute;
+    display: block;
+    height: 100px;
+    width: 50px;
+    right: 0px;
+    top: 0px;
+    line-height: 106px;
+    text-align: center;
+    font-size: 25px;
+    color: #428bca;
+}
+
 .members.rooms:after{
     content: "\e802";
 	font-family: pencil;
@@ -189,6 +210,10 @@ body, .item {
 
 .right_folder {
 
+}
+
+.div_center{
+    text-align: center;
 }
 
 html {
